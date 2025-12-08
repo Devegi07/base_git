@@ -28,6 +28,7 @@ jobs:
           path: .
 
       - name: Test the file
+        shell: bash
         run: |
           if grep -q "Hello" output.txt; then
             echo "Test passed!"
@@ -35,6 +36,7 @@ jobs:
             echo "Test failed!"
             exit 1
           fi
+
 
   deploy:
     needs: test
