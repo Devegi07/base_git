@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: windows-latest
     steps:
       - name: Create output file
         run: echo "Hello" > output.txt
@@ -19,7 +19,7 @@ jobs:
 
   test:
     needs: build
-    runs-on: self-hosted
+    runs-on: windows-latest
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
@@ -28,6 +28,7 @@ jobs:
           path: .
 
       - name: Test the file
+        shell: bash
         run: |
           if grep -q "Hello" output.txt; then
             echo "Test passed!"
@@ -36,9 +37,10 @@ jobs:
             exit 1
           fi
 
+
   deploy:
     needs: test
-    runs-on: self-hosted
+    runs-on: windows-latest
     steps:
       - name: Deploy step
         run: echo "Deploying your app..."
